@@ -1,0 +1,27 @@
+version: "3.7"
+services:
+  api_service:
+    container_name: springboot-app-container
+    build: .
+    restart: always
+    ports:
+      - 8080:8080
+    environment:
+     SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/localspringbootdb
+     SPRING_DATASOURCE_USERNAME: admin
+     SPRING_DATASOURCE_PASSWORD: root
+     
+    
+    
+  db:
+    container_name: mysql-container
+    image: mysql:8.0.27
+    environment:
+      DATABSE_HOST: docker-mysql
+      DATABSE_PORT: 3306
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: localspringbootdb
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: root
+    links:
+        - api_service
